@@ -1,0 +1,32 @@
+{
+    "name": "wazi/skeleton",
+    "description": "Le projet de départ de Wazi : un site de plusieurs pages, prêt à modifier.",
+    "type": "project",
+    "license": "MIT",
+    "require": {
+        "php": "^8.5",
+        "ext-mbstring": "*",
+        "wazi/framework": "^0.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "scripts": {
+        "post-create-project-cmd": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "start": [
+            "Composer\\Config::disableProcessTimeout",
+            "@php -S localhost:8000 -t public"
+        ]
+    },
+    "scripts-descriptions": {
+        "start": "Lance le site sur http://localhost:8000 (Ctrl+C pour l'arrêter)."
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable"
+}

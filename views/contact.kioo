@@ -1,0 +1,22 @@
+<k:layout name="base">
+<k:block name="titre">Contact</k:block>
+
+<h1>Contact</h1>
+<p class="chapo">Les messages envoyés sont gardés dans le fichier <code>var/messages.jsonl</code>.</p>
+
+<!-- Vous n'écrivez pas le jeton de protection : Kioo l'ajoute de lui-même à tout
+     formulaire POST envoyé à ce site. Regardez le code source de la page dans
+     votre navigateur : un champ caché « _csrf » s'y trouve. -->
+<form method="post" action="/contact" class="carte formulaire">
+    <label for="nom">Votre nom</label>
+    <input id="nom" name="nom" value="{nom}" maxlength="80" autocomplete="name" required>
+    <!-- « erreurs.nom » n'existe que si ce champ est refusé. Kioo refuse une clé
+         inconnue : « ?? null » dit que son absence est prévue. -->
+    <p k:if="(erreurs.nom ?? null) != null" class="erreur" role="alert">{erreurs.nom}</p>
+
+    <label for="texte">Votre message</label>
+    <textarea id="texte" name="texte" rows="6" maxlength="{longueur_max}" required>{texte}</textarea>
+    <p k:if="(erreurs.texte ?? null) != null" class="erreur" role="alert">{erreurs.texte}</p>
+
+    <button class="bouton">Envoyer</button>
+</form>

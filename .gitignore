@@ -1,0 +1,9 @@
+# Les bibliothèques installées par Composer : elles se réinstallent par « composer install ».
+/vendor/
+
+# Vos réglages et vos secrets : propres à chaque machine, jamais partagés.
+/.env
+
+# Ce que le site écrit en fonctionnant (sessions, messages reçus) : des données, pas du code.
+/var/*
+!/var/.gitignore

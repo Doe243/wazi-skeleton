@@ -1,0 +1,18 @@
+<k:layout name="base">
+<k:block name="titre">À propos</k:block>
+
+<h1>Comment cette page est faite</h1>
+<p class="chapo">Trois pièces, que vous pouvez ouvrir dans votre éditeur.</p>
+
+<!-- k:for écrit la balise une fois par élément de la liste « etapes »,
+     donnée par le contrôleur. « numero » est la position, à partir de 0. -->
+<ol class="etapes">
+    <li k:for="numero, etape in etapes" class="carte">
+        <h2>{numero + 1}. {etape.titre}</h2>
+        <p>{etape.texte}</p>
+        <p><code>{etape.fichier}</code></p>
+    </li>
+    <li k:else class="carte">Aucune étape à afficher.</li>
+</ol>
+
+<p>Le guide complet de Wazi explique chaque pièce, de la première route à la mise en ligne.</p>

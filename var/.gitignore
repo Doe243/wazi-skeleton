@@ -1,0 +1,3 @@
+# Ce dossier doit exister, mais rien de ce qu'il contient n'entre dans Git.
+*
+!.gitignore

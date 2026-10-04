@@ -1,0 +1,64 @@
+# Mon site
+
+Un site construit avec [Wazi](https://github.com/Doe243/wazi), le framework PHP où tout est clair.
+
+Ce fichier est à vous : remplacez-le par la présentation de votre projet.
+
+## Lancer le site
+
+```bash
+composer start
+```
+
+Puis ouvrez http://localhost:8000. Pour arrêter le serveur : `Ctrl+C`.
+
+Cette commande lance le serveur de développement de PHP sur le dossier `public/`. Elle équivaut à `php -S localhost:8000 -t public`.
+
+## Ce que contient le projet
+
+```text
+public/              Le SEUL dossier visible depuis un navigateur
+  index.php          Le point d'entrée : réglages, assemblage, réponse
+  app.css            Les styles
+src/                 Votre code
+  PageController.php     Les pages simples : accueil, à propos
+  ContactController.php  Un formulaire complet : recevoir, vérifier, garder
+  Messagerie.php         Un service : il garde les messages reçus
+views/               Vos pages, en templates Kioo
+  base.kioo          La mise en page commune
+  partiels/          Les morceaux inclus par d'autres pages
+var/                 Ce que le site écrit : sessions, messages (jamais dans Git)
+.env                 Vos réglages et vos secrets (jamais dans Git)
+.env.example         Le modèle de ce fichier, à partager
+```
+
+## Ajouter une page
+
+1. Dans `src/PageController.php`, écrivez une méthode, avec son adresse au-dessus :
+
+   ```php
+   #[Get('/tarifs')]
+   public function tarifs(): ResponseInterface
+   {
+       return $this->kioo->page('tarifs');
+   }
+   ```
+
+2. Créez le template `views/tarifs.kioo` :
+
+   ```html
+   <k:layout name="base">
+   <k:block name="titre">Tarifs</k:block>
+
+   <h1>Nos tarifs</h1>
+   ```
+
+3. Ajoutez un lien dans `views/base.kioo`.
+
+## Avant de mettre en ligne
+
+- Le serveur web ne doit servir **que** le dossier `public/`.
+- `APP_DEBUG` doit valoir `false`, ou ne pas être défini.
+- Le site doit être en HTTPS, et `APP_HOSTS` contenir ses noms.
+
+Le guide de Wazi détaille chaque point dans sa page « Mettre en ligne ».

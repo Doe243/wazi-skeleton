@@ -1,0 +1,36 @@
+<!-- La mise en page : le squelette commun à toutes les pages du site.
+     Chaque page s'y place par <k:layout name="base">, et remplit les emplacements <k:block>.
+
+     « site », « annee » et « message » ne sont passés par aucun contrôleur :
+     public/index.php les partage avec tous les templates.
+
+     Ces commentaires sont pour vous : Kioo ne les envoie jamais au visiteur. -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <title><k:block name="titre">Accueil</k:block> — {site}</title>
+    <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+<header class="bandeau">
+    <a class="marque" href="/">{site}</a>
+    <nav aria-label="Navigation principale">
+        <a href="/">Accueil</a>
+        <a href="/a-propos">À propos</a>
+        <a href="/contact">Contact</a>
+    </nav>
+</header>
+
+<main>
+    <!-- Le message laissé par la page précédente, s'il y en a un. -->
+    <p k:if="message" class="message succes" role="status">{message}</p>
+
+    <k:block name="content"></k:block>
+</main>
+
+<k:include file="partiels/pied">
+</body>
+</html>
