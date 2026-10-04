@@ -1,7 +1,9 @@
 name: CI
 
+# Sur chaque demande de fusion, et sur main après la fusion (ADR-034).
 on:
   push:
+    branches: [main]
   pull_request:
 
 # Ce que vérifie cette CI : le projet de départ s'installe, sa console
@@ -18,8 +20,8 @@ on:
 
 env:
   # La version sous laquelle le dossier du framework est présenté à Composer.
-  # Elle doit satisfaire la contrainte de composer.json (« ^0.3 »).
-  FRAMEWORK_VERSION: '0.3.99'
+  # Elle doit satisfaire la contrainte de composer.json (« ^0.4 »).
+  FRAMEWORK_VERSION: '0.4.99'
 
 jobs:
   installation:
