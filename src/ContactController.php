@@ -10,6 +10,7 @@ use Wazi\Http\Response;
 use Wazi\Http\Session;
 use Wazi\Routing\Attribute\Get;
 use Wazi\Routing\Attribute\Post;
+use Wazi\Validation\Validator;
 use Wazi\View\Kioo;
 
 /**
@@ -42,24 +43,16 @@ final readonly class ContactController
         // formulaire : il vient bien d'une page de ce site.
         //
         // Tout ce qui vient d'un visiteur se vérifie : présence, type, longueur.
-        $formulaire = (array) $request->getParsedBody();
-        $nom = is_string($formulaire['nom'] ?? null) ? trim($formulaire['nom']) : '';
-        $texte = is_string($formulaire['texte'] ?? null) ? trim($formulaire['texte']) : '';
+        // Le validateur le fait champ par champ, et rend chaque valeur vérifiée.
+        // Par défaut, un champ est obligatoire.
+        $v = new Validator($request->getParsedBody());
+        $nom = $v->text('nom', max: 80);                             // une seule ligne
+        $texte = $v->longText('texte', max: self::LONGUEUR_MAX);     // plusieurs lignes
 
-        $erreurs = [];
-
-        if ($nom === '' || mb_strlen($nom) > 80) {
-            $erreurs['nom'] = 'Indiquez votre nom (80 caractères au plus).';
-        }
-
-        if ($texte === '' || mb_strlen($texte) > self::LONGUEUR_MAX) {
-            $erreurs['texte'] = 'Écrivez votre message (' . self::LONGUEUR_MAX . ' caractères au plus).';
-        }
-
-        if ($erreurs !== []) {
+        if ($v->fails()) {
             // On réaffiche le formulaire avec ce qui a été saisi. 422 : « j'ai
             // compris la demande, mais son contenu ne convient pas ».
-            return $this->page($nom, $texte, $erreurs, 422);
+            return $this->page($v->input(), $v->errors(), 422);
         }
 
         $this->messagerie->garder($nom, $texte);
@@ -72,13 +65,14 @@ final readonly class ContactController
     }
 
     /**
+     * @param array<string, string> $saisie  ce que le visiteur a écrit, par champ
      * @param array<string, string> $erreurs ce qui ne va pas, par champ
      */
-    private function page(string $nom = '', string $texte = '', array $erreurs = [], int $statut = 200): ResponseInterface
+    private function page(array $saisie = [], array $erreurs = [], int $statut = 200): ResponseInterface
     {
         return $this->kioo->page('contact', [
-            'nom' => $nom,
-            'texte' => $texte,
+            'nom' => $saisie['nom'] ?? '',
+            'texte' => $saisie['texte'] ?? '',
             'erreurs' => $erreurs,
             'longueur_max' => self::LONGUEUR_MAX,
         ], $statut);
