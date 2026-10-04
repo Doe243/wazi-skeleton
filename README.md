@@ -21,6 +21,7 @@ Si votre terminal répond que `wazi` est introuvable, la commande n'est pas inst
 ```bash
 wazi                      # la liste des commandes
 wazi serve --port=8080    # le site, sur un autre port
+wazi routes               # les routes de l'application
 wazi messages             # les messages reçus par le formulaire de contact
 wazi serve --help         # le détail d'une commande
 ```
@@ -30,8 +31,9 @@ Pour écrire votre propre commande, copiez `src/MessagesCommand.php`, puis décl
 ## Ce que contient le projet
 
 ```text
+app.php              Votre application : réglages, services, routes
 public/              Le SEUL dossier visible depuis un navigateur
-  index.php          Le point d'entrée : réglages, assemblage, réponse
+  index.php          Le point d'entrée : charge app.php et répond
   app.css            Les styles
 src/                 Votre code
   PageController.php     Les pages simples : accueil, à propos
@@ -44,7 +46,7 @@ views/               Vos pages, en templates Kioo
 var/                 Ce que le site écrit : sessions, messages (jamais dans Git)
 .env                 Vos réglages et vos secrets (jamais dans Git)
 .env.example         Le modèle de ce fichier, à partager
-wazi                 La console du projet : « wazi »
+wazi                 La console du projet : charge app.php et exécute une commande
 ```
 
 ## Ajouter une page
@@ -69,6 +71,8 @@ wazi                 La console du projet : « wazi »
    ```
 
 3. Ajoutez un lien dans `views/base.kioo`.
+
+Un nouveau contrôleur se déclare dans `app.php`, par une ligne `$app->router->addController(...)`. Pour vérifier que vos routes sont bien là : `wazi routes`.
 
 ## Avant de mettre en ligne
 
