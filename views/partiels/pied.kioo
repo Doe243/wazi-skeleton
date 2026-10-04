@@ -1,0 +1,4 @@
+<!-- Un morceau de page, inclus par la mise en page : <k:include file="partiels/pied">. -->
+<footer class="pied">
+    <p>{site}, {annee}. Construit avec Wazi.</p>
+</footer>

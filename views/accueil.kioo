@@ -1,0 +1,28 @@
+<k:layout name="base">
+<k:block name="titre">Accueil</k:block>
+
+<section class="ouverture">
+    <h1>Votre site fonctionne.</h1>
+    <p class="chapo">Vous regardez la page d'accueil de votre nouveau projet. Tout ce que vous voyez est à vous : modifiez, cassez, recommencez.</p>
+</section>
+
+<h2>Par où commencer</h2>
+
+<div class="grille">
+    <article class="carte">
+        <h3>Changer cette page</h3>
+        <p>Ouvrez <code>views/accueil.kioo</code>, modifiez une phrase, rechargez. C'est du HTML ordinaire.</p>
+    </article>
+    <article class="carte">
+        <h3>Voir comment une page est faite</h3>
+        <p>La page <a href="/a-propos">À propos</a> montre le chemin : une route, un contrôleur, un template.</p>
+    </article>
+    <article class="carte">
+        <h3>Essayer un formulaire</h3>
+        <p>La page <a href="/contact">Contact</a> reçoit, vérifie et garde un message. Elle est protégée sans que vous écriviez rien.</p>
+    </article>
+    <article class="carte">
+        <h3>Provoquer une erreur</h3>
+        <p>Écrivez <code>\{inconnue}</code> dans un template. Wazi vous dit quoi corriger, et où.</p>
+    </article>
+</div>

@@ -1,0 +1,155 @@
+/*
+ * Les styles de votre site. Ce fichier est servi tel quel par le serveur :
+ * tout ce qui se trouve dans public/ est visible depuis un navigateur.
+ *
+ * Les couleurs portent un nom, défini une fois ici. Pour changer l'allure du
+ * site, changez ces valeurs : le reste de la feuille suit.
+ */
+
+:root {
+    --fond: #F3F8F8;
+    --surface: #FFFFFF;
+    --texte: #0D2B30;
+    --secondaire: #3F5B5F;
+    --bordure: #C5DAD9;
+    --accent: #0B6E70;
+    --accent-texte: #FFFFFF;
+    --doux: #D6EEEC;
+    --erreur: #8E1B21;
+}
+
+/* Le thème sombre, quand l'appareil du visiteur le demande. */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --fond: #081E22;
+        --surface: #0D2B30;
+        --texte: #F3F8F8;
+        --secondaire: #A9C6C5;
+        --bordure: #21494E;
+        --accent: #5FD6D2;
+        --accent-texte: #081E22;
+        --doux: #153C41;
+        --erreur: #F3A7AB;
+    }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--fond);
+    color: var(--texte);
+    font-family: system-ui, sans-serif;
+    line-height: 1.6;
+}
+
+.bandeau, main, .pied {
+    width: 100%;
+    max-width: 56rem;
+    margin: 0 auto;
+    padding: 1.25rem;
+}
+
+main { flex: 1; padding-bottom: 3rem; }
+
+/* --- Bandeau --- */
+
+.bandeau {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: .5rem 1.5rem;
+}
+
+.marque { color: var(--texte); font-weight: 700; font-size: 1.25rem; letter-spacing: -.02em; text-decoration: none; }
+
+nav { display: flex; flex-wrap: wrap; gap: .25rem; }
+nav a { color: var(--texte); font-weight: 600; text-decoration: none; padding: .35rem .7rem; border-radius: 8px; }
+nav a:hover { background: var(--doux); }
+
+/* --- Texte --- */
+
+h1 { font-size: clamp(1.9rem, 5vw, 2.6rem); line-height: 1.1; letter-spacing: -.03em; margin: 0 0 .75rem; text-wrap: balance; }
+h2 { font-size: 1.3rem; letter-spacing: -.02em; margin: 2.5rem 0 1rem; }
+h3 { font-size: 1.02rem; margin: 0 0 .4rem; }
+p { margin: 0 0 1rem; }
+
+a { color: var(--accent); text-underline-offset: .2em; }
+.chapo { color: var(--secondaire); font-size: 1.08rem; max-width: 38rem; }
+.ouverture { padding: 2rem 0 .5rem; }
+
+code {
+    font-family: ui-monospace, monospace;
+    font-size: .88em;
+    background: var(--doux);
+    border-radius: 6px;
+    padding: .12em .4em;
+    overflow-wrap: anywhere;
+}
+
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* --- Cartes --- */
+
+.carte {
+    background: var(--surface);
+    border: 1px solid var(--bordure);
+    border-radius: 16px;
+    padding: 1.4rem;
+}
+
+.carte > :last-child { margin-bottom: 0; }
+.carte p { color: var(--secondaire); }
+
+.grille {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+    gap: 1rem;
+}
+
+.etapes { list-style: none; padding: 0; margin: 1.5rem 0; display: grid; gap: 1rem; }
+.etapes h2 { margin: 0 0 .4rem; font-size: 1.1rem; }
+
+/* --- Formulaire --- */
+
+.formulaire { display: grid; gap: .5rem; max-width: 34rem; }
+.formulaire label { font-weight: 600; font-size: .93rem; margin-top: .5rem; }
+
+input, textarea {
+    width: 100%;
+    font: inherit;
+    color: var(--texte);
+    background: var(--fond);
+    border: 1px solid var(--bordure);
+    border-radius: 10px;
+    padding: .65rem .85rem;
+}
+
+textarea { resize: vertical; }
+
+.bouton {
+    justify-self: start;
+    margin-top: 1rem;
+    font: inherit;
+    font-weight: 600;
+    color: var(--accent-texte);
+    background: var(--accent);
+    border: 0;
+    border-radius: 10px;
+    padding: .65rem 1.2rem;
+    cursor: pointer;
+}
+
+.erreur { color: var(--erreur); font-weight: 600; font-size: .92rem; margin: 0; }
+
+.message { border-radius: 12px; padding: .7rem 1rem; font-weight: 600; }
+.message.succes { background: var(--doux); border: 1px solid var(--accent); }
+
+/* --- Pied --- */
+
+.pied { color: var(--secondaire); font-size: .88rem; border-top: 1px solid var(--bordure); }
+.pied p { margin: 0; }
