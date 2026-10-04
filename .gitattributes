@@ -1,3 +1,4 @@
 # Ce qui sert au dépôt, pas à un projet installé par « composer create-project ».
 /.github export-ignore
 /.gitattributes export-ignore
+/CHANGELOG.md export-ignore
