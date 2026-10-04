@@ -3,15 +3,29 @@
 
 <span class="pastille">Le chemin d'une page</span>
 <h1>Comment cette page est faite</h1>
-<p class="chapo">Trois pièces, que vous pouvez ouvrir dans votre éditeur. Quand vous tapez l'adresse <code>/a-propos</code>, elles s'enchaînent dans cet ordre.</p>
+<p class="chapo">Trois pièces, que vous pouvez ouvrir dans votre éditeur. Quand vous tapez l'adresse <code>/a-propos</code>, elles s'enchaînent dans cet ordre. Cliquez sur une étape pour voir son code.</p>
 
 <!-- k:for écrit la balise une fois par élément de la liste « etapes »,
-     donnée par le contrôleur. Les numéros sont posés par la feuille de style. -->
+     donnée par le contrôleur. Les numéros sont posés par la feuille de style.
+
+     <details> s'ouvre et se ferme au clic, sans JavaScript. Ce qui est dans
+     <summary> reste toujours visible ; le reste n'apparaît qu'une fois ouvert.
+
+     {etape.code} est du code, mais Kioo l'affiche comme du texte : ce qui vient
+     d'une valeur est toujours échappé, jamais interprété. -->
 <ol class="etapes">
-    <li k:for="etape in etapes" class="carte">
-        <h2>{etape.titre}</h2>
-        <p>{etape.texte}</p>
-        <p><code>{etape.fichier}</code></p>
+    <li k:for="etape in etapes">
+        <details class="carte etape">
+            <summary>
+                <h2>{etape.titre}</h2>
+                <p>{etape.texte}</p>
+                <p class="invite">Voir le code</p>
+            </summary>
+            <figure class="extrait">
+                <figcaption>{etape.fichier}</figcaption>
+                <pre><code>{etape.code}</code></pre>
+            </figure>
+        </details>
     </li>
     <li k:else class="carte">Aucune étape à afficher.</li>
 </ol>
