@@ -6,6 +6,7 @@
  *
  *     wazi                 la liste des commandes
  *     wazi serve           lance le site sur votre ordinateur
+ *     wazi routes          liste les routes de l'application
  *     wazi messages        affiche les messages reçus par le formulaire de contact
  *
  * Si la commande « wazi » n'est pas installée sur votre ordinateur, tapez
@@ -23,6 +24,9 @@ use App\Messagerie;
 use App\MessagesCommand;
 use Wazi\Console\Application;
 use Wazi\Console\Command\ServeCommand;
+use Wazi\Console\Output;
+use Wazi\Kernel\Command\RoutesCommand;
+use Wazi\Kernel\Kernel;
 
 // La console ne s'exécute que dans un terminal, jamais par un navigateur.
 if (PHP_SAPI !== 'cli') {
@@ -37,12 +41,27 @@ if (!is_file(__DIR__ . '/vendor/autoload.php')) {
 
 require __DIR__ . '/vendor/autoload.php';
 
+// Votre application, la même que celle que sert le site.
+try {
+    $app = Kernel::load(__DIR__ . '/app.php');
+} catch (Throwable $error) {
+    // Une erreur dans app.php (un réglage manquant, une route mal écrite)
+    // empêche aussi la console de démarrer : on dit laquelle, et où.
+    $output = new Output(STDOUT, STDERR);
+    $output->error($error->getMessage());
+    $output->line('  ' . $error::class . ', dans ' . $error->getFile() . ', ligne ' . $error->getLine());
+
+    exit(1);
+}
+
 $console = new Application();
 
 // Les commandes de Wazi.
 $console->add(new ServeCommand(__DIR__));
+$console->add(new RoutesCommand($app->router));
 
-// Les commandes de votre projet.
-$console->add(new MessagesCommand(new Messagerie(__DIR__ . '/var/messages.jsonl')));
+// Les commandes de votre projet. Le conteneur fabrique leurs services,
+// comme il le fait pour vos contrôleurs.
+$console->add(new MessagesCommand($app->container->get(Messagerie::class)));
 
 exit($console->run($argv));
