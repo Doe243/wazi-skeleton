@@ -21,11 +21,13 @@
 <header class="bandeau">
     <div class="conteneur">
         <a class="marque" href="/">
-            <!-- Le signe du site : remplacez ce dessin par le vôtre. aria-hidden : il
-                 n'apprend rien à un lecteur d'écran, le nom du site est juste à côté. -->
-            <svg viewBox="0 0 28 28" aria-hidden="true">
-                <rect x="2" y="6" width="16" height="16" rx="4" fill="#12A3A0"/>
-                <rect x="10" y="6" width="16" height="16" rx="4" fill="#5FD6D2" fill-opacity=".55"/>
+            <!-- Le signe de Wazi : deux panneaux de verre qui forment un W. Remplacez
+                 ce dessin et le nom (APP_NAME, dans .env) par les vôtres.
+                 Ses couleurs viennent de app.css : il suit le thème clair ou sombre.
+                 aria-hidden : il n'apprend rien à un lecteur d'écran, le nom est juste à côté. -->
+            <svg viewBox="0 0 76 56" fill="none" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path class="panneau" d="M6 8 L24 48 L40 14"/>
+                <path class="panneau clair" d="M36 14 L52 48 L70 8"/>
             </svg>
             {site}
         </a>
