@@ -61,7 +61,7 @@ final readonly class MessagesCommand implements Command
             return 2;
         }
 
-        $messages = array_slice(array_reverse($this->messagerie->tous()), 0, (int) $combien);
+        $messages = $this->messagerie->derniers((int) $combien);
 
         if ($messages === []) {
             $output->line('Aucun message pour l\'instant.');

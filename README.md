@@ -25,6 +25,9 @@ wazi routes               # les routes de l'application
 wazi explain contact      # ce que l'adresse /contact traverse : middlewares, contrôleur
 wazi make:controller Tarif    # crée un contrôleur et sa page
 wazi messages             # les messages reçus par le formulaire de contact
+wazi db:migrate           # crée ou modifie les tables de la base de données
+wazi db:status            # les migrations faites, et celles à faire
+wazi make:migration ajouter_email_aux_messages    # crée un fichier de migration
 wazi views:compile        # prépare les templates, pour la mise en ligne
 wazi serve --help         # le détail d'une commande
 ```
@@ -41,17 +44,35 @@ public/              Le SEUL dossier visible depuis un navigateur
 src/                 Votre code
   PageController.php     Les pages simples : accueil, à propos
   ContactController.php  Un formulaire complet : recevoir, vérifier, garder
-  Messagerie.php         Un service : il garde les messages reçus
+  Messagerie.php         Un service : il garde les messages reçus, en base de données
   MessagesCommand.php    Une commande de la console : « wazi messages »
 views/               Vos pages, en templates Kioo
   base.kioo          La mise en page commune
   partiels/          Les morceaux inclus par d'autres pages
-var/                 Ce que le site écrit : sessions, messages (jamais dans Git)
+migrations/          La structure de la base, pas à pas : des fichiers SQL
+var/                 Ce que le site écrit : sessions, base SQLite (jamais dans Git)
 build/               Les templates préparés pour la mise en ligne (jamais dans Git)
 .env                 Vos réglages et vos secrets (jamais dans Git)
 .env.example         Le modèle de ce fichier, à partager
 wazi                 La console du projet : charge app.php et exécute une commande
 ```
+
+## La base de données
+
+Le projet garde les messages du formulaire de contact dans une base **SQLite** : un simple fichier, `var/app.sqlite`, créé à l'installation. Il n'y a rien à installer ni à régler.
+
+La structure de la base est décrite par les fichiers du dossier `migrations/`. Pour ajouter une table ou une colonne :
+
+```bash
+wazi make:migration creer_articles    # crée un fichier SQL, à remplir
+wazi db:migrate                       # l'applique à la base
+```
+
+Si une page répond qu'une table n'existe pas, c'est que `wazi db:migrate` n'a pas été lancé.
+
+Pour lire et écrire dans la base, regardez `src/Messagerie.php` : le SQL s'écrit en clair, et les valeurs se donnent toujours à part.
+
+Pour passer à MySQL ou PostgreSQL, réglez `DATABASE_URL` dans `.env` (le modèle est dans `.env.example`).
 
 ## Ajouter une page
 
@@ -93,6 +114,7 @@ Un nouveau contrôleur se déclare dans `app.php`, par une ligne `$app->router->
 - Le serveur web ne doit servir **que** le dossier `public/`.
 - `APP_DEBUG` doit valoir `false`, ou ne pas être défini.
 - Le site doit être en HTTPS, et `APP_HOSTS` contenir ses noms.
+- Lancez `wazi db:migrate` : la base reçoit les tables et les colonnes ajoutées depuis la dernière mise en ligne.
 - Lancez `wazi views:compile` : les pages s'affichent plus vite. Le dossier `build/` ne doit pas être inscriptible par le serveur web.
 
 Le guide de Wazi détaille chaque point dans sa page « Mettre en ligne ».

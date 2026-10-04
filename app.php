@@ -16,9 +16,9 @@
 declare(strict_types=1);
 
 use App\ContactController;
-use App\Messagerie;
 use App\PageController;
 use Wazi\Config\Config;
+use Wazi\Database\Database;
 use Wazi\Http\ServerRequestCreator;
 use Wazi\Http\Session;
 use Wazi\Kernel\Kernel;
@@ -46,7 +46,14 @@ $app = new Kernel(
 
 // 3. Les services qui ont besoin d'autre chose que d'objets : on explique au
 //    conteneur comment les fabriquer. Les autres, il les fabrique tout seul.
-$app->container->set(Messagerie::class, static fn(): Messagerie => new Messagerie(__DIR__ . '/var/messages.jsonl'));
+//
+//    La base de données. Sans réglage, c'est un fichier SQLite dans var/ : rien
+//    à installer. La connexion ne s'ouvre qu'à la première requête : une page
+//    qui ne lit rien en base ne la paie pas.
+$app->container->set(Database::class, static fn(): Database => Database::fromUrl(
+    $config->string('DATABASE_URL', 'sqlite:var/app.sqlite'),
+    __DIR__,
+));
 
 // 4. Ce que TOUTES les pages affichent : inutile de le passer depuis chaque contrôleur.
 $kioo = $app->container->get(Kioo::class);

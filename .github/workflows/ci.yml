@@ -53,7 +53,7 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: mbstring
+          extensions: mbstring, pdo_sqlite
           coverage: none
           tools: composer
 
@@ -84,6 +84,13 @@ jobs:
       - name: Réglages, comme après « composer create-project »
         working-directory: skeleton
         run: cp .env.example .env
+
+      - name: La base se construit, comme après « composer create-project »
+        working-directory: skeleton
+        run: |
+          php wazi db:migrate
+          php wazi db:status
+          test -f var/app.sqlite
 
       - name: La console démarre
         working-directory: skeleton
@@ -128,8 +135,22 @@ jobs:
           attendre 404 /nulle-part
           # Les réglages ne sont jamais servis.
           attendre 404 /.env
+          # La base n'est jamais servie.
+          attendre 404 /var/app.sqlite
           # Un formulaire sans jeton de protection est refusé.
           attendre 403 /contact -d 'nom=Alice&texte=Bonjour'
+
+          # Un formulaire complet : le message arrive dans la base.
+          jeton=$(curl -s -c cookies.txt http://127.0.0.1:8000/contact | grep -o 'name="_csrf" value="[a-f0-9]*"' | grep -o '[a-f0-9]\{64\}')
+          attendre 303 /contact -b cookies.txt --data-urlencode 'nom=Alice' --data-urlencode "texte=Bonjour d'Alice; DROP TABLE messages" -d "_csrf=$jeton"
+          attendre 422 /contact -b cookies.txt -d "nom=&texte=&_csrf=$jeton"
+
+          if php wazi messages | grep -q "DROP TABLE messages"; then
+            echo "ok      le message est dans la base, tel qu'il a été écrit"
+          else
+            echo "ÉCHEC   le message n'est pas dans la base"
+            echecs=$((echecs + 1))
+          fi
 
           kill $SERVEUR
 

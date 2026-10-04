@@ -2,7 +2,7 @@
 <k:block name="titre">Contact</k:block>
 
 <h1>Contact</h1>
-<p class="chapo">Les messages envoyés sont gardés dans le fichier <code>var/messages.jsonl</code>.</p>
+<p class="chapo">Les messages envoyés sont gardés dans la base de données. Pour les lire : <code>wazi messages</code>.</p>
 
 <!-- Vous n'écrivez pas le jeton de protection : Kioo l'ajoute de lui-même à tout
      formulaire POST envoyé à ce site. Regardez le code source de la page dans
