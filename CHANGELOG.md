@@ -6,7 +6,13 @@ Ce fichier n'est pas copié dans un projet créé par `composer create-project`.
 
 ## À venir
 
+### Modifié
+- **Nouveau design des trois pages :** bandeau en verre qui reste en haut de l'écran, lien de la page affichée marqué dans le menu, accueil avec un extrait de code, étapes numérotées, formulaire avec ses états (survol, saisie, champ refusé) et ce qui se passe à l'envoi. Thème sombre, navigation au clavier, animations réduites sur demande.
+- `public/app.css` est rangé en six parties, avec une échelle d'espacements et des couleurs nommées par rôle.
+- Chaque contrôleur donne le nom de sa page (`page`) à la mise en page.
+
 ### Ajouté
+- `public/favicon.svg` : l'icône de l'onglet.
 - `.editorconfig` : les éditeurs appliquent d'eux-mêmes l'indentation et les fins de ligne du projet.
 
 ## 0.4.0 — 2026-10-04
