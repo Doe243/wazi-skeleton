@@ -7,7 +7,7 @@
         "php": "^8.5",
         "ext-mbstring": "*",
         "ext-pdo_sqlite": "*",
-        "wazi/framework": "^0.3"
+        "wazi/framework": "^0.4"
     },
     "autoload": {
         "psr-4": {
