@@ -50,10 +50,14 @@ $app = new Kernel(
 //    La base de données. Sans réglage, c'est un fichier SQLite dans var/ : rien
 //    à installer. La connexion ne s'ouvre qu'à la première requête : une page
 //    qui ne lit rien en base ne la paie pas.
+//
+//    withTracer($app->tracer) : en mode développement, les requêtes SQL de
+//    chaque page s'affichent dans la barre de débogage, en bas de l'écran.
+//    En production, $app->tracer vaut null : rien n'est signalé.
 $app->container->set(Database::class, static fn(): Database => Database::fromUrl(
     $config->string('DATABASE_URL', 'sqlite:var/app.sqlite'),
     __DIR__,
-));
+)->withTracer($app->tracer));
 
 // 4. Ce que TOUTES les pages affichent : inutile de le passer depuis chaque contrôleur.
 $kioo = $app->container->get(Kioo::class);

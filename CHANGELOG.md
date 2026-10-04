@@ -12,6 +12,8 @@ Ce fichier n'est pas copié dans un projet créé par `composer create-project`.
 - Chaque contrôleur donne le nom de sa page (`page`) à la mise en page.
 
 ### Ajouté
+- En mode développement, la barre de débogage de Wazi apparaît en bas des pages ; la base de données lui signale ses requêtes (`withTracer($app->tracer)` dans `app.php`).
+- `wazi messages --help` montre des exemples et un texte d'aide (`DetailedCommand`).
 - Un bouton pour choisir le thème clair ou sombre (`public/theme.js`) ; sans JavaScript, le thème suit l'appareil.
 - Le signe de Wazi dans le bandeau et dans l'onglet (`public/favicon.svg`) ; le site s'appelle « Wazi » tant que `APP_NAME` n'est pas changé.
 - `.editorconfig` : les éditeurs appliquent d'eux-mêmes l'indentation et les fins de ligne du projet.
