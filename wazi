@@ -7,6 +7,7 @@
  *     wazi                 la liste des commandes
  *     wazi serve           lance le site sur votre ordinateur
  *     wazi routes          liste les routes de l'application
+ *     wazi make:controller Tarif    crée un contrôleur et sa page
  *     wazi messages        affiche les messages reçus par le formulaire de contact
  *
  * Si la commande « wazi » n'est pas installée sur votre ordinateur, tapez
@@ -23,6 +24,7 @@ declare(strict_types=1);
 use App\Messagerie;
 use App\MessagesCommand;
 use Wazi\Console\Application;
+use Wazi\Console\Command\MakeControllerCommand;
 use Wazi\Console\Command\ServeCommand;
 use Wazi\Console\Output;
 use Wazi\Kernel\Command\RoutesCommand;
@@ -59,6 +61,7 @@ $console = new Application();
 // Les commandes de Wazi.
 $console->add(new ServeCommand(__DIR__));
 $console->add(new RoutesCommand($app->router));
+$console->add(new MakeControllerCommand(__DIR__));
 
 // Les commandes de votre projet. Le conteneur fabrique leurs services,
 // comme il le fait pour vos contrôleurs.

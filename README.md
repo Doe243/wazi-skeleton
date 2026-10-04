@@ -22,6 +22,7 @@ Si votre terminal répond que `wazi` est introuvable, la commande n'est pas inst
 wazi                      # la liste des commandes
 wazi serve --port=8080    # le site, sur un autre port
 wazi routes               # les routes de l'application
+wazi make:controller Tarif    # crée un contrôleur et sa page
 wazi messages             # les messages reçus par le formulaire de contact
 wazi serve --help         # le détail d'une commande
 ```
@@ -50,6 +51,16 @@ wazi                 La console du projet : charge app.php et exécute une comma
 ```
 
 ## Ajouter une page
+
+Le plus rapide est de laisser la console créer le contrôleur et sa page :
+
+```bash
+wazi make:controller Tarif
+```
+
+Elle crée `src/TarifController.php` et `views/tarif.kioo`, tous deux commentés, puis vous donne la ligne à ajouter dans `app.php`. La page répond alors sur `/tarif`.
+
+Pour ajouter une page à un contrôleur qui existe déjà, à la main :
 
 1. Dans `src/PageController.php`, écrivez une méthode, avec son adresse au-dessus :
 
