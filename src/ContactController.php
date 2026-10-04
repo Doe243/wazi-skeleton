@@ -71,6 +71,7 @@ final readonly class ContactController
     private function page(array $saisie = [], array $erreurs = [], int $statut = 200): ResponseInterface
     {
         return $this->kioo->page('contact', [
+            'page' => 'contact',
             'nom' => $saisie['nom'] ?? '',
             'texte' => $saisie['texte'] ?? '',
             'erreurs' => $erreurs,

@@ -1,22 +1,46 @@
 <k:layout name="base">
 <k:block name="titre">Contact</k:block>
 
+<span class="pastille">Un formulaire complet</span>
 <h1>Contact</h1>
-<p class="chapo">Les messages envoyés sont gardés dans la base de données. Pour les lire : <code>wazi messages</code>.</p>
+<p class="chapo">Écrivez un message : il est vérifié, puis gardé dans la base de données.</p>
 
-<!-- Vous n'écrivez pas le jeton de protection : Kioo l'ajoute de lui-même à tout
-     formulaire POST envoyé à ce site. Regardez le code source de la page dans
-     votre navigateur : un champ caché « _csrf » s'y trouve. -->
-<form method="post" action="/contact" class="carte formulaire">
-    <label for="nom">Votre nom</label>
-    <input id="nom" name="nom" value="{nom}" maxlength="80" autocomplete="name" required>
-    <!-- « erreurs.nom » n'existe que si ce champ est refusé. Kioo refuse une clé
-         inconnue : « ?? null » dit que son absence est prévue. -->
-    <p k:if="(erreurs.nom ?? null) != null" class="erreur" role="alert">{erreurs.nom}</p>
+<div class="deux-colonnes">
+    <!-- Vous n'écrivez pas le jeton de protection : Kioo l'ajoute de lui-même à tout
+         formulaire POST envoyé à ce site. Regardez le code source de la page dans
+         votre navigateur : un champ caché « _csrf » s'y trouve. -->
+    <form method="post" action="/contact" class="carte formulaire">
+        <!-- « erreurs.nom » n'existe que si ce champ est refusé. Kioo refuse une clé
+             inconnue : « ?? null » dit que son absence est prévue.
+             aria-describedby relie le champ à son message d'erreur : un lecteur
+             d'écran le lit quand le champ est atteint. -->
+        <div class="champ {(erreurs.nom ?? null) != null ? 'refuse' : ''}">
+            <label for="nom">Votre nom</label>
+            <input id="nom" name="nom" value="{nom}" maxlength="80" autocomplete="name" required
+                   aria-invalid="{(erreurs.nom ?? null) != null ? 'true' : null}"
+                   aria-describedby="{(erreurs.nom ?? null) != null ? 'erreur-nom' : null}">
+            <p k:if="(erreurs.nom ?? null) != null" id="erreur-nom" class="erreur" role="alert">{erreurs.nom}</p>
+        </div>
 
-    <label for="texte">Votre message</label>
-    <textarea id="texte" name="texte" rows="6" maxlength="{longueur_max}" required>{texte}</textarea>
-    <p k:if="(erreurs.texte ?? null) != null" class="erreur" role="alert">{erreurs.texte}</p>
+        <div class="champ {(erreurs.texte ?? null) != null ? 'refuse' : ''}">
+            <label for="texte">Votre message</label>
+            <textarea id="texte" name="texte" rows="6" maxlength="{longueur_max}" required
+                      aria-invalid="{(erreurs.texte ?? null) != null ? 'true' : null}"
+                      aria-describedby="{(erreurs.texte ?? null) != null ? 'erreur-texte' : 'aide-texte'}">{texte}</textarea>
+            <p k:if="(erreurs.texte ?? null) != null" id="erreur-texte" class="erreur" role="alert">{erreurs.texte}</p>
+            <p k:else id="aide-texte" class="aide">{longueur_max} caractères au plus.</p>
+        </div>
 
-    <button class="bouton">Envoyer</button>
-</form>
+        <button class="bouton">Envoyer le message</button>
+    </form>
+
+    <aside>
+        <h2>Ce qui se passe quand vous envoyez</h2>
+        <ul class="liste">
+            <li><strong>Le jeton est vérifié.</strong> Le formulaire vient bien d'une page de ce site.</li>
+            <li><strong>Chaque champ est vérifié.</strong> Présence, longueur, caractères : voir <code>src/ContactController.php</code>.</li>
+            <li><strong>Le message est gardé en base.</strong> Pour lire les messages reçus : <code>wazi messages</code>.</li>
+            <li><strong>Vous êtes redirigé.</strong> Recharger la page ne renvoie pas le formulaire.</li>
+        </ul>
+    </aside>
+</div>

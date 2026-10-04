@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28">
+  <!-- L'icône de l'onglet du navigateur. Remplacez-la par la vôtre. -->
+  <rect x="2" y="6" width="16" height="16" rx="4" fill="#12A3A0"/>
+  <rect x="10" y="6" width="16" height="16" rx="4" fill="#5FD6D2" fill-opacity=".55"/>
+</svg>

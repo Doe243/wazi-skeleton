@@ -2,7 +2,10 @@
      Chaque page s'y place par <k:layout name="base">, et remplit les emplacements <k:block>.
 
      « site », « annee » et « message » ne sont passés par aucun contrôleur :
-     public/index.php les partage avec tous les templates.
+     app.php les partage avec tous les templates.
+
+     « page » est donné par chaque contrôleur : c'est le nom de la page affichée,
+     qui sert à marquer son lien dans le menu.
 
      Ces commentaires sont pour vous : Kioo ne les envoie jamais au visiteur. -->
 <!DOCTYPE html>
@@ -10,23 +13,38 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="color-scheme" content="light dark">
     <title><k:block name="titre">Accueil</k:block> — {site}</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/app.css">
 </head>
 <body>
 <header class="bandeau">
-    <a class="marque" href="/">{site}</a>
-    <nav aria-label="Navigation principale">
-        <a href="/">Accueil</a>
-        <a href="/a-propos">À propos</a>
-        <a href="/contact">Contact</a>
-    </nav>
+    <div class="conteneur">
+        <a class="marque" href="/">
+            <!-- Le signe du site : remplacez ce dessin par le vôtre. aria-hidden : il
+                 n'apprend rien à un lecteur d'écran, le nom du site est juste à côté. -->
+            <svg viewBox="0 0 28 28" aria-hidden="true">
+                <rect x="2" y="6" width="16" height="16" rx="4" fill="#12A3A0"/>
+                <rect x="10" y="6" width="16" height="16" rx="4" fill="#5FD6D2" fill-opacity=".55"/>
+            </svg>
+            {site}
+        </a>
+        <!-- aria-current="page" marque le lien de la page affichée. Quand la valeur
+             est null, Kioo retire l'attribut. -->
+        <nav class="menu" aria-label="Navigation principale">
+            <a href="/" aria-current="{(page ?? '') == 'accueil' ? 'page' : null}">Accueil</a>
+            <a href="/a-propos" aria-current="{(page ?? '') == 'a-propos' ? 'page' : null}">À propos</a>
+            <a href="/contact" aria-current="{(page ?? '') == 'contact' ? 'page' : null}">Contact</a>
+        </nav>
+    </div>
 </header>
 
-<main>
+<main class="conteneur">
     <!-- Le message laissé par la page précédente, s'il y en a un. -->
-    <p k:if="message" class="message succes" role="status">{message}</p>
+    <p k:if="message" class="message succes" role="status">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5l4 4 8-9"/></svg>
+        {message}
+    </p>
 
     <k:block name="content"></k:block>
 </main>

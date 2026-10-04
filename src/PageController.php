@@ -14,7 +14,7 @@ use Wazi\View\Kioo;
  * Pour ajouter une page :
  *   1. écrivez une méthode ici, avec son adresse au-dessus : #[Get('/tarifs')] ;
  *   2. créez son template : views/tarifs.kioo ;
- *   3. ajoutez un lien dans views/base.kioo.
+ *   3. ajoutez un lien dans le menu de views/base.kioo.
  */
 final readonly class PageController
 {
@@ -24,14 +24,16 @@ final readonly class PageController
     #[Get('/')]
     public function accueil(): ResponseInterface
     {
-        return $this->kioo->page('accueil');
+        // Le second argument : ce que le template peut afficher. « page » sert
+        // à la mise en page, pour marquer le lien de cette page dans le menu.
+        return $this->kioo->page('accueil', ['page' => 'accueil']);
     }
 
     #[Get('/a-propos')]
     public function aPropos(): ResponseInterface
     {
-        // Le second argument : ce que le template peut afficher.
         return $this->kioo->page('a-propos', [
+            'page' => 'a-propos',
             'etapes' => [
                 ['titre' => 'La route', 'texte' => 'Une adresse, écrite au-dessus d\'une méthode.', 'fichier' => 'src/PageController.php'],
                 ['titre' => 'Le contrôleur', 'texte' => 'Il prépare ce que la page affiche.', 'fichier' => 'src/PageController.php'],
