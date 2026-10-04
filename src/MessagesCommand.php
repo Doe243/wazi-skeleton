@@ -10,7 +10,7 @@ use Wazi\Console\Option;
 use Wazi\Console\Output;
 
 /**
- * Une commande de votre projet : « php wazi messages ».
+ * Une commande de votre projet : « wazi messages ».
  *
  * Elle affiche les messages reçus par le formulaire de contact. C'est un
  * modèle : copiez-la pour écrire vos propres commandes, puis déclarez la

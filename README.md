@@ -7,20 +7,22 @@ Ce fichier est à vous : remplacez-le par la présentation de votre projet.
 ## Lancer le site
 
 ```bash
-php wazi serve
+wazi serve
 ```
 
 Puis ouvrez http://localhost:8000. Pour arrêter le serveur : `Ctrl+C`.
+
+Si votre terminal répond que `wazi` est introuvable, la commande n'est pas installée sur votre ordinateur. Tapez alors `php wazi serve` : c'est le même fichier qui s'exécute. Le guide de Wazi explique comment installer la commande, page « La console ».
 
 ## La console
 
 `wazi` est la console de votre projet. Sans rien d'autre, elle liste ses commandes :
 
 ```bash
-php wazi                      # la liste des commandes
-php wazi serve --port=8080    # le site, sur un autre port
-php wazi messages             # les messages reçus par le formulaire de contact
-php wazi serve --help         # le détail d'une commande
+wazi                      # la liste des commandes
+wazi serve --port=8080    # le site, sur un autre port
+wazi messages             # les messages reçus par le formulaire de contact
+wazi serve --help         # le détail d'une commande
 ```
 
 Pour écrire votre propre commande, copiez `src/MessagesCommand.php`, puis déclarez-la dans le fichier `wazi`.
@@ -35,14 +37,14 @@ src/                 Votre code
   PageController.php     Les pages simples : accueil, à propos
   ContactController.php  Un formulaire complet : recevoir, vérifier, garder
   Messagerie.php         Un service : il garde les messages reçus
-  MessagesCommand.php    Une commande de la console : « php wazi messages »
+  MessagesCommand.php    Une commande de la console : « wazi messages »
 views/               Vos pages, en templates Kioo
   base.kioo          La mise en page commune
   partiels/          Les morceaux inclus par d'autres pages
 var/                 Ce que le site écrit : sessions, messages (jamais dans Git)
 .env                 Vos réglages et vos secrets (jamais dans Git)
 .env.example         Le modèle de ce fichier, à partager
-wazi                 La console du projet : « php wazi »
+wazi                 La console du projet : « wazi »
 ```
 
 ## Ajouter une page
