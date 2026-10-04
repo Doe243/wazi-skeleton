@@ -7,6 +7,7 @@
  *     wazi                 la liste des commandes
  *     wazi serve           lance le site sur votre ordinateur
  *     wazi routes          liste les routes de l'application
+ *     wazi explain contact --method=POST    explique ce qu'une adresse traverse
  *     wazi make:controller Tarif    crée un contrôleur et sa page
  *     wazi messages        affiche les messages reçus par le formulaire de contact
  *
@@ -27,6 +28,7 @@ use Wazi\Console\Application;
 use Wazi\Console\Command\MakeControllerCommand;
 use Wazi\Console\Command\ServeCommand;
 use Wazi\Console\Output;
+use Wazi\Kernel\Command\ExplainCommand;
 use Wazi\Kernel\Command\RoutesCommand;
 use Wazi\Kernel\Kernel;
 
@@ -61,6 +63,7 @@ $console = new Application();
 // Les commandes de Wazi.
 $console->add(new ServeCommand(__DIR__));
 $console->add(new RoutesCommand($app->router));
+$console->add(new ExplainCommand($app));
 $console->add(new MakeControllerCommand(__DIR__));
 
 // Les commandes de votre projet. Le conteneur fabrique leurs services,
