@@ -7,6 +7,6 @@
 # Les templates préparés par « wazi views:compile » : ils se refabriquent au déploiement.
 /build/
 
-# Ce que le site écrit en fonctionnant (sessions, messages reçus) : des données, pas du code.
+# Ce que le site écrit en fonctionnant (sessions, base de données SQLite) : des données, pas du code.
 /var/*
 !/var/.gitignore

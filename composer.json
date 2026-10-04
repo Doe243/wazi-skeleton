@@ -6,6 +6,7 @@
     "require": {
         "php": "^8.5",
         "ext-mbstring": "*",
+        "ext-pdo_sqlite": "*",
         "wazi/framework": "^0.3"
     },
     "autoload": {
@@ -15,7 +16,8 @@
     },
     "scripts": {
         "post-create-project-cmd": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "@php wazi db:migrate"
         ]
     },
     "config": {

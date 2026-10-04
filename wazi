@@ -10,6 +10,9 @@
  *     wazi explain contact --method=POST    explique ce qu'une adresse traverse
  *     wazi make:controller Tarif    crée un contrôleur et sa page
  *     wazi views:compile   prépare les templates, pour la mise en ligne
+ *     wazi db:migrate      crée ou modifie les tables de la base de données
+ *     wazi db:status       montre les migrations faites et celles à faire
+ *     wazi make:migration ajouter_email    crée un fichier de migration
  *     wazi messages        affiche les messages reçus par le formulaire de contact
  *
  * Si la commande « wazi » n'est pas installée sur votre ordinateur, tapez
@@ -27,8 +30,13 @@ use App\Messagerie;
 use App\MessagesCommand;
 use Wazi\Console\Application;
 use Wazi\Console\Command\MakeControllerCommand;
+use Wazi\Console\Command\MakeMigrationCommand;
 use Wazi\Console\Command\ServeCommand;
 use Wazi\Console\Output;
+use Wazi\Database\Database;
+use Wazi\Database\Migrator;
+use Wazi\Kernel\Command\DbMigrateCommand;
+use Wazi\Kernel\Command\DbStatusCommand;
 use Wazi\Kernel\Command\ExplainCommand;
 use Wazi\Kernel\Command\RoutesCommand;
 use Wazi\Kernel\Command\ViewsCompileCommand;
@@ -69,6 +77,12 @@ $console->add(new RoutesCommand($app->router));
 $console->add(new ExplainCommand($app));
 $console->add(new MakeControllerCommand(__DIR__));
 $console->add(new ViewsCompileCommand($app->container->get(Kioo::class)));
+
+// La base de données : les migrations sont les fichiers du dossier migrations/.
+$migrator = new Migrator($app->container->get(Database::class), __DIR__ . '/migrations');
+$console->add(new DbMigrateCommand($migrator));
+$console->add(new DbStatusCommand($migrator));
+$console->add(new MakeMigrationCommand(__DIR__));
 
 // Les commandes de votre projet. Le conteneur fabrique leurs services,
 // comme il le fait pour vos contrôleurs.
