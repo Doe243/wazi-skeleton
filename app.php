@@ -39,6 +39,9 @@ $app = new Kernel(
     ),
     views: __DIR__ . '/views',
     sessions: __DIR__ . '/var/sessions',
+    // Les templates préparés par « wazi views:compile », pour la mise en ligne.
+    // Ce dossier ne doit pas être inscriptible par le serveur web.
+    compiledViews: __DIR__ . '/build/views',
 );
 
 // 3. Les services qui ont besoin d'autre chose que d'objets : on explique au

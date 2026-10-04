@@ -9,6 +9,7 @@
  *     wazi routes          liste les routes de l'application
  *     wazi explain contact --method=POST    explique ce qu'une adresse traverse
  *     wazi make:controller Tarif    crée un contrôleur et sa page
+ *     wazi views:compile   prépare les templates, pour la mise en ligne
  *     wazi messages        affiche les messages reçus par le formulaire de contact
  *
  * Si la commande « wazi » n'est pas installée sur votre ordinateur, tapez
@@ -30,7 +31,9 @@ use Wazi\Console\Command\ServeCommand;
 use Wazi\Console\Output;
 use Wazi\Kernel\Command\ExplainCommand;
 use Wazi\Kernel\Command\RoutesCommand;
+use Wazi\Kernel\Command\ViewsCompileCommand;
 use Wazi\Kernel\Kernel;
+use Wazi\View\Kioo;
 
 // La console ne s'exécute que dans un terminal, jamais par un navigateur.
 if (PHP_SAPI !== 'cli') {
@@ -65,6 +68,7 @@ $console->add(new ServeCommand(__DIR__));
 $console->add(new RoutesCommand($app->router));
 $console->add(new ExplainCommand($app));
 $console->add(new MakeControllerCommand(__DIR__));
+$console->add(new ViewsCompileCommand($app->container->get(Kioo::class)));
 
 // Les commandes de votre projet. Le conteneur fabrique leurs services,
 // comme il le fait pour vos contrôleurs.
