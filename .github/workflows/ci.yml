@@ -41,12 +41,12 @@ jobs:
             exit 1
           fi
 
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
         with:
           path: skeleton
 
       - name: Récupérer le framework (provisoire)
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           repository: Doe243/wazi
           token: ${{ secrets.WAZI_FRAMEWORK_TOKEN }}
