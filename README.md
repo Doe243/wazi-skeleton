@@ -25,6 +25,7 @@ wazi routes               # les routes de l'application
 wazi explain contact      # ce que l'adresse /contact traverse : middlewares, contrôleur
 wazi make:controller Tarif    # crée un contrôleur et sa page
 wazi messages             # les messages reçus par le formulaire de contact
+wazi views:compile        # prépare les templates, pour la mise en ligne
 wazi serve --help         # le détail d'une commande
 ```
 
@@ -46,6 +47,7 @@ views/               Vos pages, en templates Kioo
   base.kioo          La mise en page commune
   partiels/          Les morceaux inclus par d'autres pages
 var/                 Ce que le site écrit : sessions, messages (jamais dans Git)
+build/               Les templates préparés pour la mise en ligne (jamais dans Git)
 .env                 Vos réglages et vos secrets (jamais dans Git)
 .env.example         Le modèle de ce fichier, à partager
 wazi                 La console du projet : charge app.php et exécute une commande
@@ -91,5 +93,6 @@ Un nouveau contrôleur se déclare dans `app.php`, par une ligne `$app->router->
 - Le serveur web ne doit servir **que** le dossier `public/`.
 - `APP_DEBUG` doit valoir `false`, ou ne pas être défini.
 - Le site doit être en HTTPS, et `APP_HOSTS` contenir ses noms.
+- Lancez `wazi views:compile` : les pages s'affichent plus vite. Le dossier `build/` ne doit pas être inscriptible par le serveur web.
 
 Le guide de Wazi détaille chaque point dans sa page « Mettre en ligne ».

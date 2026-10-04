@@ -4,6 +4,9 @@
 # Vos réglages et vos secrets : propres à chaque machine, jamais partagés.
 /.env
 
+# Les templates préparés par « wazi views:compile » : ils se refabriquent au déploiement.
+/build/
+
 # Ce que le site écrit en fonctionnant (sessions, messages reçus) : des données, pas du code.
 /var/*
 !/var/.gitignore
