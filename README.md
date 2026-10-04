@@ -42,6 +42,7 @@ public/              Le SEUL dossier visible depuis un navigateur
   index.php          Le point d'entrée : charge app.php et répond
   app.css            Les styles : couleurs, espacements, composants
   favicon.svg        L'icône de l'onglet du navigateur
+  theme.js           Le bouton du thème clair ou sombre
 src/                 Votre code
   PageController.php     Les pages simples : accueil, à propos
   ContactController.php  Un formulaire complet : recevoir, vérifier, garder

@@ -34,10 +34,26 @@ final readonly class PageController
     {
         return $this->kioo->page('a-propos', [
             'page' => 'a-propos',
+            // Chaque étape porte son code : le template l'affiche quand on ouvre sa carte.
             'etapes' => [
-                ['titre' => 'La route', 'texte' => 'Une adresse, écrite au-dessus d\'une méthode.', 'fichier' => 'src/PageController.php'],
-                ['titre' => 'Le contrôleur', 'texte' => 'Il prépare ce que la page affiche.', 'fichier' => 'src/PageController.php'],
-                ['titre' => 'Le template', 'texte' => 'Une page HTML, avec des valeurs entre accolades.', 'fichier' => 'views/a-propos.kioo'],
+                [
+                    'titre' => 'La route',
+                    'texte' => 'Une adresse, écrite au-dessus d\'une méthode.',
+                    'fichier' => 'src/PageController.php',
+                    'code' => "#[Get('/a-propos')]\npublic function aPropos(): ResponseInterface",
+                ],
+                [
+                    'titre' => 'Le contrôleur',
+                    'texte' => 'Il prépare ce que la page affiche, et choisit le template.',
+                    'fichier' => 'src/PageController.php',
+                    'code' => "return \$this->kioo->page('a-propos', [\n    'etapes' => [...],\n]);",
+                ],
+                [
+                    'titre' => 'Le template',
+                    'texte' => 'Une page HTML, avec des valeurs entre accolades.',
+                    'fichier' => 'views/a-propos.kioo',
+                    'code' => "<li k:for=\"etape in etapes\">\n    <h2>{etape.titre}</h2>\n    <p>{etape.texte}</p>\n</li>",
+                ],
             ],
         ]);
     }

@@ -59,7 +59,7 @@ $app->container->set(Database::class, static fn(): Database => Database::fromUrl
 $kioo = $app->container->get(Kioo::class);
 $session = $app->container->get(Session::class);
 
-$kioo->share('site', $config->string('APP_NAME', 'Mon site'));
+$kioo->share('site', $config->string('APP_NAME', 'Wazi'));
 $kioo->share('annee', (int) date('Y'));
 // Une fonction : elle est appelée au moment d'afficher la page. Le message
 // laissé par la page précédente est lu là, et effacé : il ne s'affiche qu'une fois.
