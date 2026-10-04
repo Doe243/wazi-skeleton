@@ -2,26 +2,53 @@
 <k:block name="titre">Accueil</k:block>
 
 <section class="ouverture">
-    <h1>Votre site fonctionne.</h1>
-    <p class="chapo">Vous regardez la page d'accueil de votre nouveau projet. Tout ce que vous voyez est à vous : modifiez, cassez, recommencez.</p>
+    <div>
+        <span class="pastille">Tout est prêt</span>
+        <h1>Votre site fonctionne.</h1>
+        <p class="chapo">Vous regardez la page d'accueil de votre nouveau projet. Tout ce que vous voyez est à vous : modifiez, cassez, recommencez.</p>
+        <div class="actions">
+            <a class="bouton" href="/a-propos">Comprendre une page</a>
+            <a class="bouton discret" href="/contact">Essayer le formulaire</a>
+        </div>
+    </div>
+
+    <!-- Un extrait de code, pour montrer à quoi ressemble un template.
+         Dans un template, une accolade qui doit s'afficher s'écrit « \{ »,
+         et un chevron « &lt; » : sinon Kioo et le navigateur les interpréteraient. -->
+    <figure class="extrait">
+        <figcaption>views/accueil.kioo</figcaption>
+        <pre><code><span class="balise">&lt;k:layout</span> name=<span class="valeur">"base"</span><span class="balise">&gt;</span>
+
+<span class="balise">&lt;h1&gt;</span>Votre site fonctionne.<span class="balise">&lt;/h1&gt;</span>
+<span class="balise">&lt;p&gt;</span>Bienvenue sur <span class="valeur">\{site}</span>.<span class="balise">&lt;/p&gt;</span>
+
+<span class="discret">&lt;!-- Du HTML, et des valeurs entre accolades. --&gt;</span></code></pre>
+    </figure>
 </section>
 
-<h2>Par où commencer</h2>
+<div class="rubrique">
+    <h2>Par où commencer</h2>
+    <p>Quatre choses à essayer, dans l'ordre que vous voulez.</p>
+</div>
 
 <div class="grille">
     <article class="carte">
+        <span class="libelle">Modifier</span>
         <h3>Changer cette page</h3>
         <p>Ouvrez <code>views/accueil.kioo</code>, modifiez une phrase, rechargez. C'est du HTML ordinaire.</p>
     </article>
-    <article class="carte">
+    <a class="carte" href="/a-propos">
+        <span class="libelle">Comprendre</span>
         <h3>Voir comment une page est faite</h3>
-        <p>La page <a href="/a-propos">À propos</a> montre le chemin : une route, un contrôleur, un template.</p>
-    </article>
-    <article class="carte">
+        <p>La page « À propos » montre le chemin : une route, un contrôleur, un template.</p>
+    </a>
+    <a class="carte" href="/contact">
+        <span class="libelle">Recevoir</span>
         <h3>Essayer un formulaire</h3>
-        <p>La page <a href="/contact">Contact</a> reçoit, vérifie et garde un message. Elle est protégée sans que vous écriviez rien.</p>
-    </article>
+        <p>La page « Contact » reçoit, vérifie et garde un message. Elle est protégée sans que vous écriviez rien.</p>
+    </a>
     <article class="carte">
+        <span class="libelle">Se tromper</span>
         <h3>Provoquer une erreur</h3>
         <p>Écrivez <code>\{inconnue}</code> dans un template. Wazi vous dit quoi corriger, et où.</p>
     </article>

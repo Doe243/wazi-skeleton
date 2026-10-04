@@ -40,7 +40,8 @@ Pour écrire votre propre commande, copiez `src/MessagesCommand.php`, puis décl
 app.php              Votre application : réglages, services, routes
 public/              Le SEUL dossier visible depuis un navigateur
   index.php          Le point d'entrée : charge app.php et répond
-  app.css            Les styles
+  app.css            Les styles : couleurs, espacements, composants
+  favicon.svg        L'icône de l'onglet du navigateur
 src/                 Votre code
   PageController.php     Les pages simples : accueil, à propos
   ContactController.php  Un formulaire complet : recevoir, vérifier, garder
@@ -105,7 +106,9 @@ Pour ajouter une page à un contrôleur qui existe déjà, à la main :
    <h1>Nos tarifs</h1>
    ```
 
-3. Ajoutez un lien dans `views/base.kioo`.
+3. Ajoutez un lien dans le menu de `views/base.kioo`.
+
+Pour que ce lien soit marqué quand la page est affichée, donnez le nom de la page au template (`['page' => 'tarifs']`) et comparez-le dans le menu, comme pour les trois liens existants.
 
 Un nouveau contrôleur se déclare dans `app.php`, par une ligne `$app->router->addController(...)`. Pour vérifier que vos routes sont bien là : `wazi routes`.
 

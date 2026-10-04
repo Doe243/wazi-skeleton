@@ -1,18 +1,19 @@
 <k:layout name="base">
 <k:block name="titre">À propos</k:block>
 
+<span class="pastille">Le chemin d'une page</span>
 <h1>Comment cette page est faite</h1>
-<p class="chapo">Trois pièces, que vous pouvez ouvrir dans votre éditeur.</p>
+<p class="chapo">Trois pièces, que vous pouvez ouvrir dans votre éditeur. Quand vous tapez l'adresse <code>/a-propos</code>, elles s'enchaînent dans cet ordre.</p>
 
 <!-- k:for écrit la balise une fois par élément de la liste « etapes »,
-     donnée par le contrôleur. « numero » est la position, à partir de 0. -->
+     donnée par le contrôleur. Les numéros sont posés par la feuille de style. -->
 <ol class="etapes">
-    <li k:for="numero, etape in etapes" class="carte">
-        <h2>{numero + 1}. {etape.titre}</h2>
+    <li k:for="etape in etapes" class="carte">
+        <h2>{etape.titre}</h2>
         <p>{etape.texte}</p>
         <p><code>{etape.fichier}</code></p>
     </li>
     <li k:else class="carte">Aucune étape à afficher.</li>
 </ol>
 
-<p>Le guide complet de Wazi explique chaque pièce, de la première route à la mise en ligne.</p>
+<p>Pour voir ce chemin dans votre terminal, tapez <code>wazi explain a-propos</code>.</p>
