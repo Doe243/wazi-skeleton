@@ -4,9 +4,12 @@
 /**
  * La console de votre projet.
  *
- *     php wazi                 la liste des commandes
- *     php wazi serve           lance le site sur votre ordinateur
- *     php wazi messages        affiche les messages reçus par le formulaire de contact
+ *     wazi                 la liste des commandes
+ *     wazi serve           lance le site sur votre ordinateur
+ *     wazi messages        affiche les messages reçus par le formulaire de contact
+ *
+ * Si la commande « wazi » n'est pas installée sur votre ordinateur, tapez
+ * « php wazi » à la place : c'est ce même fichier qui s'exécute.
  *
  * Les commandes de Wazi et les vôtres sont déclarées ici, une par ligne :
  * vous savez toujours d'où vient une commande.
@@ -34,7 +37,7 @@ if (!is_file(__DIR__ . '/vendor/autoload.php')) {
 
 require __DIR__ . '/vendor/autoload.php';
 
-$console = new Application('php wazi');
+$console = new Application();
 
 // Les commandes de Wazi.
 $console->add(new ServeCommand(__DIR__));
