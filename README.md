@@ -22,6 +22,7 @@ Si votre terminal répond que `wazi` est introuvable, la commande n'est pas inst
 wazi                      # la liste des commandes
 wazi serve --port=8080    # le site, sur un autre port
 wazi routes               # les routes de l'application
+wazi explain contact      # ce que l'adresse /contact traverse : middlewares, contrôleur
 wazi make:controller Tarif    # crée un contrôleur et sa page
 wazi messages             # les messages reçus par le formulaire de contact
 wazi serve --help         # le détail d'une commande
