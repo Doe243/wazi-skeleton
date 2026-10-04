@@ -16,14 +16,7 @@
     "scripts": {
         "post-create-project-cmd": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ],
-        "start": [
-            "Composer\\Config::disableProcessTimeout",
-            "@php -S localhost:8000 -t public"
         ]
-    },
-    "scripts-descriptions": {
-        "start": "Lance le site sur http://localhost:8000 (Ctrl+C pour l'arrêter)."
     },
     "config": {
         "sort-packages": true

@@ -1,0 +1,45 @@
+#!/usr/bin/env php
+<?php
+
+/**
+ * La console de votre projet.
+ *
+ *     php wazi                 la liste des commandes
+ *     php wazi serve           lance le site sur votre ordinateur
+ *     php wazi messages        affiche les messages reçus par le formulaire de contact
+ *
+ * Les commandes de Wazi et les vôtres sont déclarées ici, une par ligne :
+ * vous savez toujours d'où vient une commande.
+ *
+ * Pour écrire la vôtre, copiez src/MessagesCommand.php.
+ */
+
+declare(strict_types=1);
+
+use App\Messagerie;
+use App\MessagesCommand;
+use Wazi\Console\Application;
+use Wazi\Console\Command\ServeCommand;
+
+// La console ne s'exécute que dans un terminal, jamais par un navigateur.
+if (PHP_SAPI !== 'cli') {
+    exit(1);
+}
+
+if (!is_file(__DIR__ . '/vendor/autoload.php')) {
+    fwrite(STDERR, 'Les bibliothèques ne sont pas installées. Lancez « composer install » dans ce dossier.' . PHP_EOL);
+
+    exit(1);
+}
+
+require __DIR__ . '/vendor/autoload.php';
+
+$console = new Application('php wazi');
+
+// Les commandes de Wazi.
+$console->add(new ServeCommand(__DIR__));
+
+// Les commandes de votre projet.
+$console->add(new MessagesCommand(new Messagerie(__DIR__ . '/var/messages.jsonl')));
+
+exit($console->run($argv));
