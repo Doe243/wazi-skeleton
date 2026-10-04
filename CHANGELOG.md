@@ -7,11 +7,12 @@ Ce fichier n'est pas copié dans un projet créé par `composer create-project`.
 ## À venir
 
 ### Modifié
-- **Nouveau design des trois pages :** bandeau en verre qui reste en haut de l'écran, lien de la page affichée marqué dans le menu, accueil avec un extrait de code, étapes numérotées, formulaire avec ses états (survol, saisie, champ refusé) et ce qui se passe à l'envoi. Thème sombre, navigation au clavier, animations réduites sur demande.
+- **Nouveau design des trois pages :** bandeau en verre qui reste en haut de l'écran, lien de la page affichée marqué dans le menu, accueil avec un extrait de code sous deux panneaux de verre, étapes numérotées qui s'ouvrent au clic pour montrer leur code, formulaire avec ses états (survol, saisie, champ refusé) et ce qui se passe à l'envoi. Thème sombre, navigation au clavier, animations réduites sur demande.
 - `public/app.css` est rangé en six parties, avec une échelle d'espacements et des couleurs nommées par rôle.
 - Chaque contrôleur donne le nom de sa page (`page`) à la mise en page.
 
 ### Ajouté
+- Un bouton pour choisir le thème clair ou sombre (`public/theme.js`) ; sans JavaScript, le thème suit l'appareil.
 - Le signe de Wazi dans le bandeau et dans l'onglet (`public/favicon.svg`) ; le site s'appelle « Wazi » tant que `APP_NAME` n'est pas changé.
 - `.editorconfig` : les éditeurs appliquent d'eux-mêmes l'indentation et les fins de ligne du projet.
 

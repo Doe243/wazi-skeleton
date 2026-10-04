@@ -12,18 +12,22 @@
         </div>
     </div>
 
-    <!-- Un extrait de code, pour montrer à quoi ressemble un template.
+    <!-- La vitrine : un extrait de code, derrière deux panneaux de verre.
          Dans un template, une accolade qui doit s'afficher s'écrit « \{ »,
          et un chevron « &lt; » : sinon Kioo et le navigateur les interpréteraient. -->
-    <figure class="extrait">
-        <figcaption>views/accueil.kioo</figcaption>
-        <pre><code><span class="balise">&lt;k:layout</span> name=<span class="valeur">"base"</span><span class="balise">&gt;</span>
+    <div class="vitrine">
+        <div class="vitre haut"></div>
+        <div class="vitre bas"></div>
+        <figure class="extrait">
+            <figcaption>views/accueil.kioo</figcaption>
+            <pre><code><span class="balise">&lt;k:layout</span> name=<span class="valeur">"base"</span><span class="balise">&gt;</span>
 
 <span class="balise">&lt;h1&gt;</span>Votre site fonctionne.<span class="balise">&lt;/h1&gt;</span>
 <span class="balise">&lt;p&gt;</span>Bienvenue sur <span class="valeur">\{site}</span>.<span class="balise">&lt;/p&gt;</span>
 
 <span class="discret">&lt;!-- Du HTML, et des valeurs entre accolades. --&gt;</span></code></pre>
-    </figure>
+        </figure>
+    </div>
 </section>
 
 <div class="rubrique">

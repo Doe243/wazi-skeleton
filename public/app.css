@@ -27,6 +27,9 @@
     --accent: #0B6E70;
     --accent-fort: #095B5D;
     --signe: #12A3A0;
+    /* Le verre translucide des deux panneaux de l'accueil. */
+    --vitre: rgba(18, 163, 160, .16);
+    --vitre-trait: rgba(18, 163, 160, .45);
     --sur-accent: #FFFFFF;
     --buee: #D6EEEC;
     --halo: rgba(18, 163, 160, .16);
@@ -60,9 +63,12 @@
     color-scheme: light dark;
 }
 
-/* Le thème sombre, quand l'appareil du visiteur le demande. */
+/* Le thème sombre a deux portes d'entrée, avec les MÊMES valeurs :
+     - l'appareil du visiteur le demande, et il n'a rien choisi sur ce site ;
+     - il l'a choisi avec le bouton du bandeau (voir theme.js).
+   CSS ne permet pas d'écrire ces valeurs une seule fois pour les deux cas. */
 @media (prefers-color-scheme: dark) {
-    :root {
+    :root:not([data-theme="light"]) {
         --fond: #071C20;
         --carte: #0D2B30;
         --verre: rgba(13, 43, 48, .72);
@@ -79,8 +85,36 @@
         --erreur: #F3A7AB;
         --erreur-fond: #3A1518;
         --code-fond: #04141A;
+        --vitre: rgba(95, 214, 210, .12);
+        --vitre-trait: rgba(95, 214, 210, .4);
+        color-scheme: dark;
     }
 }
+
+:root[data-theme="dark"] {
+    --fond: #071C20;
+    --carte: #0D2B30;
+    --verre: rgba(13, 43, 48, .72);
+    --texte: #F3F8F8;
+    --second: #A9C4C3;
+    --trait: #1F4A50;
+    --accent: #5FD6D2;
+    --accent-fort: #8BE3E0;
+    --signe: #5FD6D2;
+    --sur-accent: #071C20;
+    --buee: #12393F;
+    --halo: rgba(95, 214, 210, .13);
+    --ombre: rgba(0, 0, 0, .6);
+    --erreur: #F3A7AB;
+    --erreur-fond: #3A1518;
+    --code-fond: #04141A;
+    --vitre: rgba(95, 214, 210, .12);
+    --vitre-trait: rgba(95, 214, 210, .4);
+    color-scheme: dark;
+}
+
+/* Le thème clair, choisi alors que l'appareil est en sombre. */
+:root[data-theme="light"] { color-scheme: light; }
 
 /* ------------------------------------------------------------------
    2. La page
@@ -197,6 +231,35 @@ code {
 .menu a:hover { color: var(--texte); background: var(--buee); }
 /* La page où l'on se trouve. */
 .menu a[aria-current="page"] { color: var(--accent); background: var(--buee); }
+
+.navigation { display: flex; align-items: center; gap: var(--e3); }
+
+/* Le bouton du thème : une lune en clair, un soleil en sombre. */
+.bouton-theme {
+    display: inline-grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0;
+    color: var(--second);
+    background: transparent;
+    border: 1px solid var(--trait);
+    border-radius: var(--arrondi-bouton);
+    cursor: pointer;
+    transition: color .15s, background-color .15s, border-color .15s;
+}
+
+.bouton-theme:hover { color: var(--texte); background: var(--buee); border-color: var(--accent); }
+/* Sans JavaScript, le bouton reste caché : le thème suit l'appareil. */
+.bouton-theme[hidden] { display: none; }
+.bouton-theme svg { width: 1.125rem; height: 1.125rem; }
+.bouton-theme .soleil { display: none; }
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .bouton-theme .lune { display: none; }
+    :root:not([data-theme="light"]) .bouton-theme .soleil { display: block; }
+}
+:root[data-theme="dark"] .bouton-theme .lune { display: none; }
+:root[data-theme="dark"] .bouton-theme .soleil { display: block; }
 
 main { flex: 1; padding-block: var(--e7) var(--e8); }
 
@@ -350,7 +413,7 @@ input:focus-visible, textarea:focus-visible { outline: none; border-color: var(-
    5. Les pages
    ------------------------------------------------------------------ */
 
-/* --- Accueil : le texte à gauche, un extrait de code à droite --- */
+/* --- Accueil : le texte à gauche, la vitrine de code à droite --- */
 
 .ouverture {
     display: grid;
@@ -362,17 +425,43 @@ input:focus-visible, textarea:focus-visible { outline: none; border-color: var(-
 
 .ouverture .actions { display: flex; flex-wrap: wrap; gap: var(--e3); margin-top: var(--e5); }
 
+/* La vitrine : un extrait de code, et deux panneaux de verre posés dessus,
+   comme les deux panneaux du signe de Wazi. On lit le code à travers. */
+.vitrine { position: relative; padding: var(--e5) var(--e4) var(--e5) 0; min-width: 0; }
+.vitrine .extrait { position: relative; }
+
+.vitre { position: absolute; border-radius: 22px; background: var(--vitre); border: 1px solid var(--vitre-trait); }
+.vitre.haut { inset: 0 0 42% 30%; transform: rotate(3deg); }
+/* Le second panneau passe DEVANT le code, sans le flouter : on lit à travers. */
+.vitre.bas { inset: 58% -1% -2% 58%; transform: rotate(-4deg); z-index: 1; }
+
 .rubrique { margin-bottom: var(--e5); }
 .rubrique p { color: var(--second); max-width: 60ch; }
 
-/* --- À propos : trois étapes reliées par un trait --- */
+/* --- À propos : trois étapes, chacune s'ouvre pour montrer son code --- */
 
 .etapes { list-style: none; padding: 0; margin: var(--e6) 0; display: grid; gap: var(--e4); counter-reset: etape; }
+.etapes li { counter-increment: etape; }
 
-.etapes li { position: relative; padding-left: 4.5rem; counter-increment: etape; }
+/* <details> est une balise HTML qui s'ouvre et se ferme au clic, sans JavaScript.
+   <summary> est sa partie toujours visible : ici, toute la carte. */
+.etape { padding: 0; overflow: hidden; transition: border-color .15s; }
+.etape:hover, .etape[open] { border-color: var(--accent); }
+
+.etape summary {
+    position: relative;
+    display: block;
+    padding: var(--e5) 3.5rem var(--e5) 4.5rem;
+    cursor: pointer;
+    list-style: none;
+}
+
+/* Safari dessine son propre triangle : on le retire. */
+.etape summary::-webkit-details-marker { display: none; }
+.etape summary > :last-child { margin-bottom: 0; }
 
 /* Le numéro de l'étape, dans un rond. */
-.etapes li::before {
+.etape summary::before {
     content: counter(etape);
     position: absolute;
     left: var(--e5);
@@ -386,7 +475,28 @@ input:focus-visible, textarea:focus-visible { outline: none; border-color: var(-
     text-align: center;
 }
 
-.etapes h2 { font-size: 1.125rem; margin-bottom: var(--e2); }
+/* Le chevron : il pointe vers le bas, et se retourne quand la carte est ouverte. */
+.etape summary::after {
+    content: "";
+    position: absolute;
+    right: var(--e5);
+    top: 1.9rem;
+    width: .6rem;
+    height: .6rem;
+    border-right: 2px solid var(--accent);
+    border-bottom: 2px solid var(--accent);
+    transform: rotate(45deg);
+    transition: transform .15s;
+}
+
+.etape[open] summary::after { transform: translateY(.3rem) rotate(-135deg); }
+
+.etape h2 { font-size: 1.125rem; margin-bottom: var(--e2); }
+.etape .invite { color: var(--accent); font-size: .875rem; font-weight: 600; }
+.etape[open] .invite { display: none; }
+
+/* Le code, sous la carte ouverte : collé à ses bords, sans arrondi ni ombre. */
+.etape .extrait { border: 0; border-top: 1px solid var(--trait); border-radius: 0; box-shadow: none; }
 
 /* --- Contact : le formulaire, et ce qu'il devient --- */
 
