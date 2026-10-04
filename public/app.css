@@ -26,6 +26,7 @@
     --trait: #C5DAD9;
     --accent: #0B6E70;
     --accent-fort: #095B5D;
+    --signe: #12A3A0;
     --sur-accent: #FFFFFF;
     --buee: #D6EEEC;
     --halo: rgba(18, 163, 160, .16);
@@ -70,6 +71,7 @@
         --trait: #1F4A50;
         --accent: #5FD6D2;
         --accent-fort: #8BE3E0;
+        --signe: #5FD6D2;
         --sur-accent: #071C20;
         --buee: #12393F;
         --halo: rgba(95, 214, 210, .13);
@@ -170,13 +172,16 @@ code {
     gap: var(--e3);
     color: var(--texte);
     font-weight: 700;
-    font-size: 1.125rem;
-    letter-spacing: -.02em;
+    font-size: 1.25rem;
+    letter-spacing: -.03em;
     text-decoration: none;
 }
 
 .marque:hover { color: var(--texte); }
-.marque svg { width: 1.75rem; height: 1.75rem; flex: none; }
+.marque svg { width: 2.25rem; height: 1.65rem; flex: none; }
+/* Le signe : un panneau opaque, un panneau translucide. */
+.marque .panneau { stroke: var(--texte); }
+.marque .panneau.clair { stroke: var(--signe); opacity: .85; }
 
 .menu { display: flex; flex-wrap: wrap; gap: var(--e1); }
 

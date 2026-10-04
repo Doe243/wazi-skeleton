@@ -12,7 +12,7 @@ Ce fichier n'est pas copié dans un projet créé par `composer create-project`.
 - Chaque contrôleur donne le nom de sa page (`page`) à la mise en page.
 
 ### Ajouté
-- `public/favicon.svg` : l'icône de l'onglet.
+- Le signe de Wazi dans le bandeau et dans l'onglet (`public/favicon.svg`) ; le site s'appelle « Wazi » tant que `APP_NAME` n'est pas changé.
 - `.editorconfig` : les éditeurs appliquent d'eux-mêmes l'indentation et les fins de ligne du projet.
 
 ## 0.4.0 — 2026-10-04
