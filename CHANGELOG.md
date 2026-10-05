@@ -6,7 +6,8 @@ Ce fichier n'est pas copié dans un projet créé par `composer create-project`.
 
 ## À venir
 
-Rien pour l'instant.
+### Ajouté
+- **Zones mises à jour** : le formulaire de contact s'envoie sans recharger la page. `k:zone` et `k:update` dans `views/contact.kioo` et `views/base.kioo`, script `public/wazi.js`, commande `wazi zones:install`. Sans JavaScript, la page se recharge comme avant.
 
 ## 0.5.0 — 2026-10-05
 

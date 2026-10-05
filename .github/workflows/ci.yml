@@ -100,6 +100,15 @@ jobs:
           php wazi explain contact --method=POST
           php wazi messages
 
+      # public/wazi.js est une copie du script de Wazi : elle doit être celle
+      # du framework installé. Si cette étape échoue, lancez « wazi zones:install »
+      # et commitez le fichier.
+      - name: Le script des zones est à jour
+        working-directory: skeleton
+        run: |
+          php wazi zones:install
+          git diff --exit-code public/wazi.js
+
       - name: Les templates se préparent
         working-directory: skeleton
         run: php wazi views:compile
@@ -132,6 +141,7 @@ jobs:
           attendre 200 /a-propos
           attendre 200 /contact
           attendre 200 /app.css
+          attendre 200 /wazi.js
           attendre 404 /nulle-part
           # Les réglages ne sont jamais servis.
           attendre 404 /.env
