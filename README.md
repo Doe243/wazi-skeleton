@@ -1,6 +1,6 @@
 # Mon site
 
-Un site construit avec [Wazi](https://github.com/Doe243/wazi), le framework PHP où tout est clair.
+Un site construit avec [Wazi](https://github.com/wazi-php/wazi), le framework PHP où tout est clair.
 
 Ce fichier est à vous : remplacez-le par la présentation de votre projet.
 
