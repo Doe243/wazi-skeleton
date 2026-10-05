@@ -8,8 +8,14 @@
 <div class="deux-colonnes">
     <!-- Vous n'écrivez pas le jeton de protection : Kioo l'ajoute de lui-même à tout
          formulaire POST envoyé à ce site. Regardez le code source de la page dans
-         votre navigateur : un champ caché « _csrf » s'y trouve. -->
-    <form method="post" action="/contact" class="carte formulaire">
+         votre navigateur : un champ caché « _csrf » s'y trouve.
+
+         k:zone donne un nom à ce formulaire, et k:update dit ce que son envoi met
+         à jour : lui-même, et le message du haut de la page. La page n'est pas
+         rechargée : le script public/wazi.js demande la même adresse, et ne garde
+         de la réponse que ces deux morceaux. Le contrôleur, lui, n'en sait rien.
+         Retirez ces deux attributs : la page se recharge, et tout marche pareil. -->
+    <form method="post" action="/contact" class="carte formulaire" k:zone="formulaire" k:update="message, formulaire">
         <!-- « erreurs.nom » n'existe que si ce champ est refusé. Kioo refuse une clé
              inconnue : « ?? null » dit que son absence est prévue.
              aria-describedby relie le champ à son message d'erreur : un lecteur
@@ -41,6 +47,7 @@
             <li><strong>Chaque champ est vérifié.</strong> Présence, longueur, caractères : voir <code>src/ContactController.php</code>.</li>
             <li><strong>Le message est gardé en base.</strong> Pour lire les messages reçus : <code>wazi messages</code>.</li>
             <li><strong>Vous êtes redirigé.</strong> Recharger la page ne renvoie pas le formulaire.</li>
+            <li><strong>Seuls deux morceaux de la page changent.</strong> Le formulaire et le message : voir <code>k:zone</code> dans <code>views/contact.kioo</code>.</li>
         </ul>
     </aside>
 </div>

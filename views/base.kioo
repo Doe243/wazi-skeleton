@@ -19,6 +19,11 @@
     <!-- Le thème clair ou sombre choisi par le visiteur : voir public/theme.js.
          Wazi n'accepte que les scripts servis par votre site. -->
     <script src="/theme.js"></script>
+    <!-- Le script de Wazi (wazi zones:install). Grâce à lui, un formulaire ou un
+         lien marqué k:update ne remplace que des morceaux de la page, les k:zone,
+         au lieu de la recharger. Sans lui, tout marche quand même.
+         « defer » : chargé sans bloquer, exécuté une fois la page lue. -->
+    <script src="/wazi.js" defer></script>
 </head>
 <body>
 <header class="bandeau">
@@ -54,11 +59,15 @@
 </header>
 
 <main class="conteneur">
-    <!-- Le message laissé par la page précédente, s'il y en a un. -->
-    <p k:if="message" class="message succes" role="status">
-        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5l4 4 8-9"/></svg>
-        {message}
-    </p>
+    <!-- Le message laissé par la page précédente, s'il y en a un.
+         k:zone : ce morceau de page a un nom. Le formulaire de contact le met à
+         jour sans recharger la page (voir views/contact.kioo). -->
+    <div k:zone="message">
+        <p k:if="message" class="message succes" role="status">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5l4 4 8-9"/></svg>
+            {message}
+        </p>
+    </div>
 
     <k:block name="content"></k:block>
 </main>

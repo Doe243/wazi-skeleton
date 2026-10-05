@@ -516,3 +516,9 @@ input:focus-visible, textarea:focus-visible { outline: none; border-color: var(-
     html { scroll-behavior: auto; }
     *, *::before, *::after { transition: none !important; }
 }
+
+/* Une zone que wazi.js est en train de mettre à jour : voir k:zone dans les templates. */
+[data-k-zone][aria-busy="true"] {
+    opacity: .55;
+    transition: opacity .15s ease-out;
+}

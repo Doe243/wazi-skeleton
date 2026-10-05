@@ -29,6 +29,7 @@ wazi db:migrate           # crée ou modifie les tables de la base de données
 wazi db:status            # les migrations faites, et celles à faire
 wazi make:migration ajouter_email_aux_messages    # crée un fichier de migration
 wazi views:compile        # prépare les templates, pour la mise en ligne
+wazi zones:install        # met à jour public/wazi.js, après une mise à jour de Wazi
 wazi serve --help         # le détail d'une commande
 ```
 
