@@ -3,7 +3,7 @@
 # tout seul.
 #
 # Les paquets Composer ne sont pas suivis ici : tant que wazi/framework n'est
-# pas publié, Dependabot ne peut pas le télécharger.
+# pas publié sur Packagist, Dependabot ne peut pas le télécharger.
 version: 2
 updates:
   - package-ecosystem: github-actions

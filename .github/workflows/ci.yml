@@ -12,8 +12,7 @@ on:
 #
 # Tant que wazi/framework n'est pas publié sur Packagist, Composer ne peut pas
 # le télécharger : on récupère son dépôt à côté, et on le donne à Composer
-# comme un dossier. Ce dépôt est privé : il faut un jeton pour le lire, rangé
-# dans le secret WAZI_FRAMEWORK_TOKEN (Settings > Secrets and variables > Actions).
+# comme un dossier.
 #
 # Le jour où le framework est publié : retirer les étapes marquées
 # « provisoire », il ne reste qu'un « composer install ».
@@ -22,6 +21,15 @@ env:
   # La version sous laquelle le dossier du framework est présenté à Composer.
   # Elle doit satisfaire la contrainte de composer.json (« ^0.4 »).
   FRAMEWORK_VERSION: '0.4.99'
+
+# Cette CI ne fait que lire le dépôt : elle n'a le droit de rien écrire.
+permissions:
+  contents: read
+
+# Un nouvel envoi sur la même branche arrête la vérification précédente.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   installation:
@@ -32,15 +40,6 @@ jobs:
       matrix:
         php: ['8.5']
     steps:
-      - name: Vérifier que le jeton est là (provisoire)
-        env:
-          TOKEN: ${{ secrets.WAZI_FRAMEWORK_TOKEN }}
-        run: |
-          if [ -z "$TOKEN" ]; then
-            echo "::error::Le secret WAZI_FRAMEWORK_TOKEN n'existe pas. Sans lui, le dépôt privé du framework ne peut pas être lu."
-            exit 1
-          fi
-
       - uses: actions/checkout@v7
         with:
           path: skeleton
@@ -49,7 +48,6 @@ jobs:
         uses: actions/checkout@v7
         with:
           repository: Doe243/wazi
-          token: ${{ secrets.WAZI_FRAMEWORK_TOKEN }}
           path: framework
 
       - uses: shivammathur/setup-php@v2

@@ -11,6 +11,9 @@ Ce fichier n'est pas copié dans un projet créé par `composer create-project`.
 - `public/app.css` est rangé en six parties, avec une échelle d'espacements et des couleurs nommées par rôle.
 - Chaque contrôleur donne le nom de sa page (`page`) à la mise en page.
 
+### Modifié (dépôt)
+- La CI lit le dépôt du framework sans jeton : il est public.
+
 ### Ajouté
 - En mode développement, la barre de débogage de Wazi apparaît en bas des pages ; la base de données lui signale ses requêtes (`withTracer($app->tracer)` dans `app.php`).
 - `wazi messages --help` montre des exemples et un texte d'aide (`DetailedCommand`).
