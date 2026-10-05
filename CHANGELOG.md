@@ -1,10 +1,16 @@
 # Journal des modifications du projet de départ
 
-Ce qui change dans `wazi/skeleton` d'une version à l'autre. Le projet de départ porte le même numéro mineur que le framework : la version 0.4 du projet de départ s'installe avec la version 0.4 de Wazi.
+Ce qui change dans `wazi/skeleton` d'une version à l'autre. Le projet de départ porte le même numéro mineur que le framework : la version 0.5 du projet de départ s'installe avec la version 0.5 de Wazi.
 
 Ce fichier n'est pas copié dans un projet créé par `composer create-project`.
 
 ## À venir
+
+Rien pour l'instant.
+
+## 0.5.0 — 2026-10-05
+
+Demande Wazi 0.5 (`wazi/framework: ^0.5`).
 
 ### Modifié
 - **Nouveau design des trois pages :** bandeau en verre qui reste en haut de l'écran, lien de la page affichée marqué dans le menu, accueil avec un extrait de code sous deux panneaux de verre, étapes numérotées qui s'ouvrent au clic pour montrer leur code, formulaire avec ses états (survol, saisie, champ refusé) et ce qui se passe à l'envoi. Thème sombre, navigation au clavier, animations réduites sur demande.

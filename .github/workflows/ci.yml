@@ -19,8 +19,8 @@ on:
 
 env:
   # La version sous laquelle le dossier du framework est présenté à Composer.
-  # Elle doit satisfaire la contrainte de composer.json (« ^0.4 »).
-  FRAMEWORK_VERSION: '0.4.99'
+  # Elle doit satisfaire la contrainte de composer.json (« ^0.5 »).
+  FRAMEWORK_VERSION: '0.5.99'
 
 # Cette CI ne fait que lire le dépôt : elle n'a le droit de rien écrire.
 permissions:
