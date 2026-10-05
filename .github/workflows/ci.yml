@@ -47,7 +47,7 @@ jobs:
       - name: Récupérer le framework (provisoire)
         uses: actions/checkout@v7
         with:
-          repository: Doe243/wazi
+          repository: wazi-php/wazi
           path: framework
 
       - uses: shivammathur/setup-php@v2

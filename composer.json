@@ -3,6 +3,12 @@
     "description": "Le projet de départ de Wazi : un site de plusieurs pages, prêt à modifier.",
     "type": "project",
     "license": "MIT",
+    "homepage": "https://github.com/wazi-php/wazi",
+    "support": {
+        "issues": "https://github.com/wazi-php/wazi-skeleton/issues",
+        "source": "https://github.com/wazi-php/wazi-skeleton",
+        "docs": "https://github.com/wazi-php/wazi/blob/main/docs/README.md"
+    },
     "require": {
         "php": "^8.5",
         "ext-mbstring": "*",
