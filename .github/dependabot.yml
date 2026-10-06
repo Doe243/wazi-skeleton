@@ -1,12 +1,14 @@
 # Dependabot propose, chaque semaine, une demande de fusion quand une action
-# de l'intégration continue a une version plus récente. Rien n'est fusionné
-# tout seul.
-#
-# Les paquets Composer ne sont pas suivis ici : tant que wazi/framework n'est
-# pas publié sur Packagist, Dependabot ne peut pas le télécharger.
+# de l'intégration continue ou un paquet Composer a une version plus récente.
+# Rien n'est fusionné tout seul : chaque mise à jour se vérifie avant.
 version: 2
 updates:
   - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+
+  - package-ecosystem: composer
     directory: /
     schedule:
       interval: weekly
