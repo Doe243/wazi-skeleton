@@ -6,21 +6,9 @@ on:
     branches: [main]
   pull_request:
 
-# Ce que vérifie cette CI : le projet de départ s'installe, sa console
-# démarre, et ses pages répondent. C'est le parcours d'une personne qui
-# vient de l'installer.
-#
-# Tant que wazi/framework n'est pas publié sur Packagist, Composer ne peut pas
-# le télécharger : on récupère son dépôt à côté, et on le donne à Composer
-# comme un dossier.
-#
-# Le jour où le framework est publié : retirer les étapes marquées
-# « provisoire », il ne reste qu'un « composer install ».
-
-env:
-  # La version sous laquelle le dossier du framework est présenté à Composer.
-  # Elle doit satisfaire la contrainte de composer.json (« ^0.5 »).
-  FRAMEWORK_VERSION: '0.5.99'
+# Ce que vérifie cette CI : le projet de départ s'installe depuis Packagist,
+# sa console démarre, et ses pages répondent. C'est le parcours d'une personne
+# qui vient de l'installer.
 
 # Cette CI ne fait que lire le dépôt : elle n'a le droit de rien écrire.
 permissions:
@@ -41,14 +29,6 @@ jobs:
         php: ['8.5']
     steps:
       - uses: actions/checkout@v7
-        with:
-          path: skeleton
-
-      - name: Récupérer le framework (provisoire)
-        uses: actions/checkout@v7
-        with:
-          repository: wazi-php/wazi
-          path: framework
 
       - uses: shivammathur/setup-php@v2
         with:
@@ -58,42 +38,30 @@ jobs:
           tools: composer
 
       - name: Vérifier composer.json
-        working-directory: skeleton
         run: composer validate --strict
 
-      - name: Donner le dossier du framework à Composer (provisoire)
-        working-directory: skeleton
-        run: |
-          composer config repositories.wazi "{\"type\": \"path\", \"url\": \"../framework\", \"options\": {\"symlink\": false, \"versions\": {\"wazi/framework\": \"$FRAMEWORK_VERSION\"}}}"
-
       - name: Installer les dépendances
-        working-directory: skeleton
         run: composer install --no-interaction --no-progress
 
       - name: Audit de sécurité des dépendances
-        working-directory: skeleton
         run: composer audit
 
       - name: Syntaxe de chaque fichier PHP
-        working-directory: skeleton
         run: |
           for fichier in app.php wazi public/index.php src/*.php; do
             php -l "$fichier"
           done
 
       - name: Réglages, comme après « composer create-project »
-        working-directory: skeleton
         run: cp .env.example .env
 
       - name: La base se construit, comme après « composer create-project »
-        working-directory: skeleton
         run: |
           php wazi db:migrate
           php wazi db:status
           test -f var/app.sqlite
 
       - name: La console démarre
-        working-directory: skeleton
         run: |
           php wazi
           php wazi routes
@@ -104,17 +72,14 @@ jobs:
       # du framework installé. Si cette étape échoue, lancez « wazi zones:install »
       # et commitez le fichier.
       - name: Le script des zones est à jour
-        working-directory: skeleton
         run: |
           php wazi zones:install
           git diff --exit-code public/wazi.js
 
       - name: Les templates se préparent
-        working-directory: skeleton
         run: php wazi views:compile
 
       - name: Les pages répondent
-        working-directory: skeleton
         run: |
           php -S 127.0.0.1:8000 -t public > serveur.log 2>&1 &
           SERVEUR=$!

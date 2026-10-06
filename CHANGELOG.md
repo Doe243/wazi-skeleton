@@ -1,13 +1,23 @@
 # Journal des modifications du projet de départ
 
-Ce qui change dans `wazi/skeleton` d'une version à l'autre. Le projet de départ porte le même numéro mineur que le framework : la version 0.5 du projet de départ s'installe avec la version 0.5 de Wazi.
+Ce qui change dans `wazi/skeleton` d'une version à l'autre. Le projet de départ porte le même numéro mineur que le framework : la version 0.6 du projet de départ s'installe avec la version 0.6 de Wazi.
 
 Ce fichier n'est pas copié dans un projet créé par `composer create-project`.
 
 ## À venir
 
+Rien pour l'instant.
+
+## 0.6.0 — 2026-10-06
+
+Demande Wazi 0.6 (`wazi/framework: ^0.6`). Le projet de départ s'installe désormais depuis Packagist : `composer create-project wazi/skeleton mon-projet`.
+
 ### Ajouté
+- La console déclare `wazi make:pwa`, qui rend le site installable comme une application. Le projet de départ ne l'est pas par défaut : la commande crée les fichiers le jour où vous le voulez.
 - **Zones mises à jour** : le formulaire de contact s'envoie sans recharger la page. `k:zone` et `k:update` dans `views/contact.kioo` et `views/base.kioo`, script `public/wazi.js`, commande `wazi zones:install`. Sans JavaScript, la page se recharge comme avant.
+
+### Modifié (dépôt)
+- La CI installe le framework depuis Packagist, comme le fera un visiteur ; Dependabot suit aussi les paquets Composer.
 
 ## 0.5.0 — 2026-10-05
 

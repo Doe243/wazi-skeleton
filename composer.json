@@ -9,11 +9,23 @@
         "source": "https://github.com/wazi-php/wazi-skeleton",
         "docs": "https://github.com/wazi-php/wazi/blob/main/docs/README.md"
     },
+    "authors": [
+        {
+            "name": "René MUMBA KIBUTIKA",
+            "homepage": "https://github.com/Doe243"
+        }
+    ],
+    "keywords": [
+        "wazi",
+        "skeleton",
+        "framework",
+        "php"
+    ],
     "require": {
         "php": "^8.5",
         "ext-mbstring": "*",
         "ext-pdo_sqlite": "*",
-        "wazi/framework": "^0.5"
+        "wazi/framework": "^0.6"
     },
     "autoload": {
         "psr-4": {
